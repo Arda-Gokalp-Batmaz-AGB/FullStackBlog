@@ -1,0 +1,93 @@
+:host {
+  /* flex */
+    display: inline-block;
+    vertical-align: top;
+    flex-direction: column;
+    width: 140px;
+    height: 200px;
+    border: 5px solid;
+    background-color: #29394b;
+    padding: 10px;
+    color: #bdc2c5;
+     border-radius: 20px; 
+    margin: 5px;
+  }
+  h2 {
+    font-size: 1.6em;
+    flex: 1;
+  }
+
+  :host.notresponded {
+    border-color: #53ace4;
+  }
+  :host.notresponded > h2 {
+    color: #53ace4;
+  }
+  :host.liked {
+    border-color: #45bf94;
+  }
+  :host.liked > h2 {
+    color: #45bf94;
+  }
+  :host.disliked {
+    border-color: #e11a1a;
+  }
+  :host.disliked > h2 {
+    color: #e11a1a;
+  }
+  :host.hover {
+    border-color: #ef01c3;
+  }
+  :host.hover-likedislike {
+    color: #ef01c3;
+  }
+  .disliked {
+    border: 5px solid;
+    border-color: #e11a1a;
+  }
+  .liked {
+    border: 5px solid;
+    border-color: #45bf94;
+  }
+  .notresponded {
+    border: 5px solid;
+    border-color: #53ace4;
+  }
+  .tools {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  .favorite {
+    width: 24px;
+    height: 24px;
+    fill: #bdc2c5;
+  }
+  .favorite.is-favorite {
+      fill: #37ad79;
+  }
+  .favorite.is-favorite-hovering {
+      fill: #45bf94;
+  }
+  .favorite.is-favorite.is-favorite-hovering {
+      fill: #ec4342;
+  }
+  .delete {
+    display: block;
+    background-color: #ec4342;
+    padding: 4px;
+    font-size: .8em;
+    border-radius: 15px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .details {
+    display: block;
+    background-color: #37ad79;
+    padding: 4px;
+    font-size: .8em;
+    border-radius: 15px;
+    color: #ffffff;
+    text-decoration: none;
+  }

@@ -1,0 +1,25 @@
+{
+    "namespace": "__KUBE_NAMESPACE__",
+    "ci_project_path_slug": "__CI_PROJECT_PATH_SLUG__",
+    "ci_environment_slug": "__CI_ENVIRONMENT_SLUG__",
+    "apps": [
+        {
+            "name": "app",
+            "port": 80,
+            "pi_registry_image": {
+                "path": "__DOCKER_IMAGE_NAME__/client",
+                "tag": "__VERSION__"
+            },
+            "os": "linux"
+        },
+        {
+            "name": "webapi",
+            "port": 5000,
+            "pi_registry_image": {
+                "path": "__DOCKER_IMAGE_NAME__/webapi",
+                "tag": "__VERSION__"
+            },
+            "os": "linux"
+        }
+    ]
+}

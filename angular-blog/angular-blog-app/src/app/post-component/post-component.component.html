@@ -1,0 +1,7 @@
+
+<div class="posts">
+    <div class="parent">
+        <app-entry-component  *ngFor="let currentPost of postList" 
+        [post]="currentPost" (deleteRequest)="deletePost($event)" [appFavoriete]="currentPost.favoriete" ></app-entry-component>
+    </div>
+</div>

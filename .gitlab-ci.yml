@@ -1,0 +1,91 @@
+include: 'https://gitlab.piworks.net/devops/k8s-files/raw/master/.k8s-deploy.yml'
+
+stages:
+ - build
+ - docker-build
+ - k8s
+
+build-front:
+  stage: build
+  image: node:16
+  script:
+    - cd angular-blog/angular-blog-app
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - angular-blog/angular-blog-app/dist
+  except:
+    - tags
+  tags:
+    - linux
+    - docker
+build api:
+  stage: build
+  image: mcr.microsoft.com/dotnet/sdk:6.0
+  script:
+    - cd DotnetAssignment
+    - dotnet restore DotnetAssignment.csproj
+    - dotnet publish -c Release -o out
+  artifacts:
+    paths:
+      - DotnetAssignment/out
+  except:
+    - tags
+  tags:
+    - linux
+    - docker
+
+
+Docker client:
+  stage: docker-build
+  image: docker
+  variables:
+    DOCKER_IMAGE_NAME: $CI_REGISTRY_IMAGE/${CI_COMMIT_REF_SLUG}/client
+  rules:
+    - if: $CI_COMMIT_REF_PROTECTED == "true"
+      variables:
+        DOCKER_IMAGE_NAME: $CI_REGISTRY_IMAGE
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
+    - if: '$K8S_DEPLOY_ONLY_PROTECTED_BRANCHES == "true" && $CI_COMMIT_REF_PROTECTED != "true"'
+      when: never
+    - when: on_success
+  before_script:
+    - '. .version.sh'
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -f dockerfile.client --build-arg VERSION=$VERSION -t "$DOCKER_IMAGE_NAME:$VERSION" .
+    - docker push "$DOCKER_IMAGE_NAME:$VERSION"
+    - docker image rm -f "$DOCKER_IMAGE_NAME:$VERSION"
+  tags:
+    - linux
+    - docker
+Docker webapi:
+  stage: docker-build
+  image: docker
+  variables:
+    DOCKER_IMAGE_NAME: $CI_REGISTRY_IMAGE/${CI_COMMIT_REF_SLUG}/webapi
+  rules:
+    - if: $CI_COMMIT_REF_PROTECTED == "true"
+      variables:
+        DOCKER_IMAGE_NAME: $CI_REGISTRY_IMAGE
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
+    - if: '$K8S_DEPLOY_ONLY_PROTECTED_BRANCHES == "true" && $CI_COMMIT_REF_PROTECTED != "true"'
+      when: never
+    - when: on_success
+  before_script:
+    - '. .version.sh'
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -f dockerfile.webapi --build-arg VERSION=$VERSION -t "$DOCKER_IMAGE_NAME:$VERSION" .
+    - docker push "$DOCKER_IMAGE_NAME:$VERSION"
+    - docker image rm -f "$DOCKER_IMAGE_NAME:$VERSION"
+  tags:
+    - linux
+    - docker

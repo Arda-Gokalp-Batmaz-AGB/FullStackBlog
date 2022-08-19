@@ -1,0 +1,5 @@
+FROM nginx:alpine
+
+COPY angular-blog/angular-blog-app/dist /usr/share/nginx/html
+
+EXPOSE 80

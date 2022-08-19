@@ -1,0 +1,5 @@
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+COPY DotnetAssignment/out /app/
+EXPOSE 5000
+ENTRYPOINT ["dotnet", "DotnetAssignment.dll"]

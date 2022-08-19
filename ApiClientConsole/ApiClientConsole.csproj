@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="EntryService\swagger.yaml" />
+    <None Remove="services\swagger.json" />
+  </ItemGroup>
+	<ItemGroup>
+		<OpenApiReference Include="services\swagger.json">
+			<CodeGenerator>NSwagCSharp</CodeGenerator>
+			<Link>OpenAPIs\swagger.json</Link>
+			<Namespace>ClientApi.Services</Namespace>
+			<ClassName>EntryServiceClient</ClassName>
+			<OutputPath>EntryServiceClient.cs</OutputPath>
+		</OpenApiReference>
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="3.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="NSwag.ApiDescription.Client" Version="13.1.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="NSwag.MSBuild" Version="13.16.1">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	
+</Project>
