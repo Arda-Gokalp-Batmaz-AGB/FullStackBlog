@@ -20,20 +20,33 @@ namespace DotnetAssignment.Services
         {
             return _repository.GetEntryById(id);
         }
-        public void CreateEntry(Entry entry)
+        public bool CreateEntry(Entry entry)
         {
-            _repository.InsertEntry(entry);
+            if(GetEntry(entry.Id) == null)
+            {
+                _repository.InsertEntry(entry);
+                return true;
+            }
+            
+            return false;
         }
-        public void RemoveEntry(int id)
+        public bool RemoveEntry(int id)
         {
-            if(_repository.GetEntryById(id) != null)
+            if (GetEntry(id) != null)
             {
                 _repository.DeleteEntry(id);
+                return true;
             }
+            return false;
         }
-        public void UpdateEntry(Entry updateEntry)
+        public bool UpdateEntry(Entry updateEntry)
         {
-            _repository.UpdateEntry(updateEntry);
+            if (GetEntry(updateEntry.Id) != null)
+            {
+                _repository.UpdateEntry(updateEntry);
+                return true;
+            }
+            return false;
         }
     }
 }

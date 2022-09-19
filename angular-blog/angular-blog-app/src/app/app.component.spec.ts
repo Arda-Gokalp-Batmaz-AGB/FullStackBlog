@@ -7,6 +7,7 @@ import { EntrySectionComponentComponent } from './entry-section-component/entry-
 import { PostComponentComponent } from './post-component/post-component.component';
 import { EntryComponentComponent } from './entry-component/entry-component.component';
 import { FormBuilder } from '@angular/forms';
+import { Post } from 'src/Post';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';

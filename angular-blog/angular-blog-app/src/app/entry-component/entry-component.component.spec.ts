@@ -1,5 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { PostDataService,Post } from '../services/PostData.service';
+import { PostDataService} from '../services/PostData.service';
+import { Post } from 'src/Post';
 import { EntryComponentComponent } from './entry-component.component';
 import { TextPipe } from "src/app/pipes/text.pipe";
 import { HttpClientTestingModule } from '@angular/common/http/testing';

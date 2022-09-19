@@ -26,6 +26,8 @@ import { PostDataService } from './services/PostData.service';
 import { FavorieteDirective } from './directives/favoriete.directive';
 import { TextPipe } from './pipes/text.pipe';
 import { RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +49,12 @@ import { RouterModule } from '@angular/router';
     MatSlideToggleModule,
     MatPaginatorModule,
     HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   exports: [EntrySectionComponentComponent,
     PostComponentComponent,

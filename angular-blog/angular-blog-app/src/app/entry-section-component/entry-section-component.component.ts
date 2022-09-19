@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild,Output,EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import {EntryComponentComponent} from 'src/app/entry-component/entry-component.component';
-import { Post } from '../services/PostData.service';
+import { Post } from 'src/Post';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { PostDataService } from '../services/PostData.service';

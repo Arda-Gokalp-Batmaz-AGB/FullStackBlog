@@ -27,7 +27,7 @@ namespace DotnetAssignment.Controllers
         public ActionResult<Entry> GetEntry(int id)
         {
             var tempEntry = _service.GetEntry(id);
-            if(tempEntry == null)
+            if (tempEntry == null)
             {
                 return NotFound();
             }
@@ -37,21 +37,33 @@ namespace DotnetAssignment.Controllers
         [HttpPost]
         public ActionResult<Entry> PostEntry(Entry entry)
         {
-            _service.CreateEntry(entry);
-            return Ok(entry);
+            var response = _service.CreateEntry(entry);
+            if (response == true)
+            {
+                return Ok(entry);
+            }
+            return BadRequest(response);
         }
         [HttpDelete]
         public ActionResult DeleteEntry(int id)
         {
-            _service.RemoveEntry(id);
-            return Ok(id);
+            var response = _service.RemoveEntry(id);
+            if (response == true)
+            {
+                return Ok(id);
+            }
+            return NotFound();
         }
 
         [HttpPut("{id}")]
         public ActionResult<Entry> UpdateEntry(Entry updateEntry)
         {
-            _service.UpdateEntry(updateEntry);
-            return Ok(updateEntry);
+            var response = _service.UpdateEntry(updateEntry);
+            if(response == true)
+            {
+                return Ok(updateEntry);
+            }
+            return NotFound("The Entry that wanted to be updated not found");
         }
     }
 }

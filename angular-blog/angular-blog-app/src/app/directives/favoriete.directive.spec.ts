@@ -2,7 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { EntryComponentComponent } from '../entry-component/entry-component.component';
 import { PostComponentComponent } from '../post-component/post-component.component';
-import { Post } from '../services/PostData.service';
+import { Post } from 'src/Post';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FavorieteDirective } from './favoriete.directive';
@@ -80,6 +80,7 @@ describe('FavorieteDirective', () => {
         view: window,
     });
     fixture.debugElement.query(By.directive(FavorieteDirective)).nativeElement.dispatchEvent(event);
+    fixture.detectChanges();
     let event2 = new MouseEvent('mouseleave', {
       bubbles: true,
       cancelable: true,

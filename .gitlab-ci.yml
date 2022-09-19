@@ -10,7 +10,7 @@ build-front:
   image: node:16
   script:
     - cd angular-blog/angular-blog-app
-    - npm install
+    - npm install --legacy-peer-deps
     - npm run build
   artifacts:
     paths:

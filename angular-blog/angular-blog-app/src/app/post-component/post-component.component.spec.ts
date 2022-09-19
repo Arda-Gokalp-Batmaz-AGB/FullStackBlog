@@ -3,7 +3,8 @@ import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { PostComponentComponent } from './post-component.component';
 import { TextPipe } from "src/app/pipes/text.pipe"
 import { of, throwError } from 'rxjs';
-import { Post, PostDataService } from '../services/PostData.service';
+import {PostDataService } from '../services/PostData.service';
+import { Post } from 'src/Post';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { EntryComponentComponent } from '../entry-component/entry-component.component';
 import { FavorieteDirective } from '../directives/favoriete.directive';
@@ -24,8 +25,6 @@ describe('PostComponentComponent', () => {
     postService = TestBed.inject(PostDataService);
     fixture = TestBed.createComponent(PostComponentComponent);
     component = fixture.componentInstance;
-   //component.ngAfterViewInit()
-    //const test = fixture.debugElement.
     fixture.detectChanges();
   });
 

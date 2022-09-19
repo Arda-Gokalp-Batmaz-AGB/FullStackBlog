@@ -1,7 +1,8 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { EntryComponentComponent } from '../entry-component/entry-component.component';
-import { Post, PostDataService } from '../services/PostData.service';
+import {PostDataService } from '../services/PostData.service';
+import { Post } from 'src/Post';
 import { TextPipe } from './text.pipe';
 
 describe('TextPipe', () => {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
-import { Post } from '../services/PostData.service';
+import { Post } from 'src/Post';
 import { PostDataService } from '../services/PostData.service';
 @Component({
   selector: 'app-entry-component',

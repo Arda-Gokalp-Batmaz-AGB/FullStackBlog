@@ -1,19 +1,18 @@
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { PostDataService,Post } from '../services/PostData.service';
+import { PostDataService} from '../services/PostData.service';
+import { Post } from 'src/Post';
 import { HttpClient,HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Observable, of ,throwError} from 'rxjs';
 describe('PostDataService', () => {
     let postService : PostDataService;
     let httpController: HttpTestingController;
-    //let httpClientSpy: jasmine.SpyObj<HttpClient>;
     let url = "https://localhost:7055/api/";
-    //const httpClientSpy = jasmine.createSpyObj('HttpClient', ['post', 'get']);
     let mockData = [
       {
         "id": -1865174072,
-        "title": "asdsadsadsadasdsad",
-        "author": "sadsadsadsa",
+        "title": "denbemetitle1",
+        "author": "arda",
         "body": "dsadsadsadsadsadsadsadsa",
         "favoriete": "like",
         "createDate": "2022-08-09T20:40:20",
@@ -21,8 +20,8 @@ describe('PostDataService', () => {
       },
       {
         "id": -1007848049,
-        "title": "denemeler",
-        "author": "asdsadsadsa",
+        "title": "denbemetitle2",
+        "author": "gokalp",
         "body": "sadsadsadsadsadsadsadsa",
         "favoriete": "dislike",
         "createDate": "2022-08-10T15:57:38",
@@ -31,7 +30,7 @@ describe('PostDataService', () => {
       {
         "id": -1017848049,
         "title": "denemeler3",
-        "author": "asdsadsadsa",
+        "author": "batmaz",
         "body": "sadsadsadsadsadsadsadsa",
         "favoriete": "dislike",
         "createDate": "2022-08-10T15:57:38",
@@ -105,8 +104,11 @@ describe('PostDataService', () => {
 	    req.flush(mockData);
       httpController.verify();
 	  }));
+
+    
     it('should add an item to the mock backend', (() => {
 			let post = new Post("deneme","test","deneme");
+      let newMockData = mockData.concat([]);
 		  postService.addPost(post).subscribe((res: Post) => {
 	      expect(res).toEqual(post);
 	    });
@@ -114,29 +116,28 @@ describe('PostDataService', () => {
 	      method: 'Post',
 	      url: `${url}Entry`,
 	    });
-      mockData.push(JSON.parse(JSON.stringify(post)));
+      newMockData.push(JSON.parse(JSON.stringify(post)));
 	    req.flush(post);
       httpController.verify();
 	  }));
     
     it('should remove an item to the mock backend', (() => {
-      let post : Post = postService.ConvertPosts(mockData)[0];
+      let newMockData = mockData.concat([]);
+      let post : Post = postService.ConvertPosts(newMockData)[0];
 		  postService.deletePost(post.ID).subscribe((res) => {
 	      expect((res as unknown as Post).ID).toEqual(post.ID);
-        expect(mockData.length).toBeGreaterThanOrEqual(2);
+        expect(newMockData.length).toEqual(2);
 	    });
 	    const req = httpController.expectOne({
 	      method: 'DELETE',
 	      url: `${url}Entry?id=`+post.ID,
 	    });
-      mockData.shift();
+      newMockData.shift();
 	    req.flush(post);
-      console.log(mockData);
       httpController.verify();
 	  }));
     it('should convert json array to post array ', (() => {
       let postList : Post[]= postService.ConvertPosts(mockData.concat([]));
-     // console.log(postList);
       let allElementsConvertedSucessfully = true;
       for (let i = 0; i < postList.length; i++) {
         const element = postList[i];
@@ -158,9 +159,7 @@ describe('PostDataService', () => {
           done();
         },
       });
-    
       const req = httpController.expectOne(url+"Entry");
-    
       req.error(mockError);
     });
     it('two objects are equal', () => {
@@ -193,7 +192,6 @@ describe('PostDataService', () => {
       post1.ID = post2.ID;
       expect(post1.equals(post2)).toBeFalse();
     });
-
   });
   
 

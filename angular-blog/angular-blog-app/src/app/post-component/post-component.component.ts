@@ -1,8 +1,8 @@
 import { Component, OnInit,ViewChild,AfterViewInit } from '@angular/core';
 import {EntryComponentComponent} from 'src/app/entry-component/entry-component.component';
 import { EntrySectionComponentComponent } from '../entry-section-component/entry-section-component.component';
-import { PostDataService,Post } from '../services/PostData.service';
-
+import { PostDataService} from '../services/PostData.service';
+import { Post } from 'src/Post';
 @Component({
   selector: 'app-post-component',
   templateUrl: './post-component.component.html',

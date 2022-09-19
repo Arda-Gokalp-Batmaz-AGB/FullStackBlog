@@ -4,7 +4,8 @@ import { EntrySectionComponentComponent } from './entry-section-component.compon
 import { FormsModule } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import {ReactiveFormsModule} from '@angular/forms';
-import { Post, PostDataService } from '../services/PostData.service';
+import { PostDataService } from '../services/PostData.service';
+import { Post } from 'src/Post';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -43,8 +44,6 @@ describe('EntrySectionComponentComponent', () => {
     httpController = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(EntrySectionComponentComponent);
     component = fixture.componentInstance;
-   //component.ngAfterViewInit()
-    //const test = fixture.debugElement.
     fixture.detectChanges();
   });
 
@@ -54,7 +53,6 @@ describe('EntrySectionComponentComponent', () => {
 
 
   it('create the table with exactly given posts', (() => {
-   // cont count = container.querySelectorAll("button");
     component.postList=[new Post("asd","asfas","sadasd"),new Post("asd2","asfas","sadasd"),new Post("asd3","asfas","sadasd")];
     
     component.updateSource();
@@ -84,7 +82,7 @@ describe('EntrySectionComponentComponent', () => {
   it('form invalid when body is too small', () => {
     component.postForm.controls.title.setValue('ardatitle');
     component.postForm.controls.author.setValue('ardaauthor');
-    component.postForm.controls.body.setValue('testing ');
+    component.postForm.controls.body.setValue('testi');
     expect(component.postForm.valid).toBeFalsy();
   });
   it('form invalid when author is too long', () => {
